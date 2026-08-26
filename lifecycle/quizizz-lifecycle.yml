@@ -1,0 +1,68 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Probes of wayground.com, quizizz.com, status.wayground.com and quizizz.statuspage.io on
+  2026-08-26, plus a search of help.wayground.com and support.wayground.com for versioning,
+  deprecation and SLA policy.
+summary: >-
+  Wayground publishes no API lifecycle policy of any kind, which follows from publishing no
+  public API. The one lifecycle event that is documented and material is the corporate rebrand.
+versioning_policy:
+  published: false
+  url: null
+  note: No versioning scheme, support window or breaking-change policy is stated.
+deprecation_policy:
+  published: false
+  url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No Deprecation or Sunset headers were observed and no deprecation policy page exists. Not
+    wired as a Deprecation pointer, because none is published.
+sla:
+  published: false
+  url: null
+status_page:
+  published: false
+  probes:
+  - url: https://status.wayground.com/
+    status: 0
+    note: >-
+      TLS certificate does not match the hostname - "no alternative certificate subject name
+      matches target host name". With verification disabled the host answers a Next.js 404. Not a
+      served status page.
+  - url: https://quizizz.statuspage.io/
+    status: 200
+    note: >-
+      Redirects to https://quizizz.statuspage.io/inactive - the Atlassian Statuspage exists but
+      has been deactivated. This is a status page that used to work and no longer does.
+  - url: https://wayground.com/home/status
+    status: 404
+  note: >-
+    Not wired as a StatusPage pointer. Wayground has no live status page; the legacy Quizizz one
+    is explicitly inactive.
+changelog:
+  published: false
+  url: null
+  note: >-
+    No product or API changelog was found. The blog at https://wayground.com/blog (HTTP 200) is
+    editorial content for educators, not a dated release log.
+events:
+- date: '2025-07'
+  type: rebrand
+  summary: >-
+    Quizizz became Wayground. quizizz.com now issues a 301 to wayground.com; the legacy domain
+    still resolves and redirects, and support.wayground.com 301s to help.wayground.com. Internal
+    paths and package identifiers still carry the old name - the MCP endpoint is
+    /_quizizzmcp/main/mcp, the iOS bundle is com.quizizz.game, the Android package is
+    com.quizizz_mobile, and the 404 page still reads "Page Not found - Quizizz".
+  source: https://wayground.com/home/from-quizizz-to-wayground
+  evidence:
+  - url: https://quizizz.com/
+    status: 301
+    location: https://wayground.com/
+deprecated_operations: []
+note: >-
+  deprecated_operations is empty because there is no contract to read operations from, not
+  because Wayground has confirmed nothing is deprecated.

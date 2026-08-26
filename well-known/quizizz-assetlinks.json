@@ -1,0 +1,22 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+        "namespace": "android_app",
+        "package_name": "com.quizizz_mobile",
+        "sha256_cert_fingerprints": [
+            "57:2F:0A:CE:7C:15:52:A9:FD:88:3D:7F:99:47:BF:A8:2B:D2:B6:FF:52:C2:9C:9D:6A:de:48:07:70:C8:DC:70"
+        ]
+        }
+    },
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+        "namespace": "android_app",
+        "package_name": "com.wayground.companion",
+        "sha256_cert_fingerprints": [
+            "DD:1D:8E:A7:4F:78:34:76:8F:00:D0:A6:8F:D1:31:FE:6B:73:20:79:DD:CA:88:4C:0A:85:C6:1D:98:FB:2E:6D"
+        ]
+        }
+    }
+]

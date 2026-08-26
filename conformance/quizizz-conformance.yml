@@ -1,0 +1,163 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://wayground.com/.well-known/oauth-authorization-server and
+  /.well-known/oauth-protected-resource (both 200, 2026-08-26);
+  https://wayground.com/home/privacy-center (200); https://wayground.com/home/integrations (200);
+  https://help.wayground.com/support/solutions/articles/158000404013-wayground-iso-certification (200).
+note: >-
+  Wayground publishes no OpenAPI, AsyncAPI, GraphQL SDL, WSDL or .proto, so every entry below is
+  evidenced from a provider-published metadata document or a provider-published page - never from
+  a contract, because there is no contract to read. Where the distinction matters it is stated on
+  the entry.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-authorization-server publishes an RFC 8414 metadata document: issuer,
+    authorization/token/registration/revocation endpoints, grant_types [authorization_code,
+    refresh_token], response_types [code].
+  source: https://wayground.com/.well-known/oauth-authorization-server
+- id: oauth2.1
+  conforms: true
+  evidence: >-
+    Authorization-code-only, PKCE S256 required, public clients with token_endpoint_auth_methods
+    ["none"], refresh tokens, resource indicators - the OAuth 2.1 profile, not legacy 2.0.
+  source: https://wayground.com/.well-known/oauth-authorization-server
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://wayground.com/_authserver/public/public/v1/oauth/register
+  source: https://wayground.com/.well-known/oauth-authorization-server
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-protected-resource returns {resource, authorization_servers,
+    scopes_supported} naming the MCP endpoint. This is the discovery document MCP clients read.
+  source: https://wayground.com/.well-known/oauth-protected-resource
+- id: rfc8707-resource-indicators
+  conforms: true
+  evidence: resource_indicators_supported = true
+  source: https://wayground.com/.well-known/oauth-authorization-server
+- id: oidc
+  conforms: false
+  evidence: >-
+    /.well-known/openid-configuration returns an S3 AccessDenied XML body (HTTP 403). No OIDC
+    discovery document is served for the Wayground OAuth server. LTI 1.3 launches do use an OIDC
+    handshake, but Wayground publishes no static OIDC or LTI configuration document for it.
+  source: https://wayground.com/.well-known/openid-configuration
+- id: mcp
+  conforms: true
+  evidence: >-
+    A remote Model Context Protocol endpoint is declared by the provider's own protected-resource
+    document at https://wayground.com/_quizizzmcp/main/mcp. Protocol version and transport could
+    not be observed - the endpoint returns CloudFront 403 to anonymous clients.
+  source: https://wayground.com/.well-known/oauth-protected-resource
+  partial: true
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns an S3 AccessDenied 403; no security.txt is served.
+  source: https://wayground.com/.well-known/security.txt
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    No error contract is published. The one JSON error body observed - from
+    /_quizizzmcp/main/.well-known/oauth-protected-resource, HTTP 404 - is a proprietary envelope
+    {"success":false,"error":"...","errorType":"resource.NOT_FOUND","time":"..."}, not
+    application/problem+json.
+  source: https://wayground.com/_quizizzmcp/main/.well-known/oauth-protected-resource
+- id: pagination
+  conforms: unknown
+  evidence: No public API and no contract, so no pagination convention is observable.
+- id: idempotency
+  conforms: unknown
+  evidence: No public write API and no contract, so no idempotency mechanism is observable.
+
+domain_standards:
+- id: lti-1.3
+  name: 1EdTech Learning Tools Interoperability 1.3
+  conforms: true
+  declared_in: docs
+  evidence: >-
+    Wayground publishes administrator guides for integrating as an LTI tool with Canvas,
+    Schoology, Blackboard and Moodle, including deep linking of activities and automatic grade
+    passback to the LMS gradebook. Per-institution client IDs and a JSON configuration URL are
+    generated at https://wayground.com/lti/admin/canvas/integration.
+  source: https://help.wayground.com/support/solutions/articles/158000403884-integrate-wayground-with-canvas-via-lti-as-an-administrator
+  caveat: >-
+    This is a documentation claim, not a contract declaration. Wayground serves no publicly
+    fetchable LTI tool configuration JSON and no JWKS URL - /lti/config.json, /lti/keys and
+    /lti/.well-known/jwks.json all return the single-page-app HTML shell (HTTP 200, text/html),
+    which is a miss, not a document. A platform administrator must generate the configuration
+    from an authenticated Wayground admin screen.
+- id: 1edtech-trusted-apps
+  name: 1EdTech TrustEd Apps data privacy certification
+  conforms: true
+  declared_in: docs
+  evidence: '"TrustEd Apps Certified Data Privacy badge from 1EdTech" listed on the Privacy Center.'
+  source: https://wayground.com/home/privacy-center
+- id: oneroster
+  name: 1EdTech OneRoster
+  conforms: unknown
+  declared_in: null
+  evidence: >-
+    Wayground documents roster and grade sync through Clever, ClassLink and Google Classroom but
+    never names OneRoster. Those platforms may broker OneRoster on Wayground's behalf; Wayground
+    itself makes no OneRoster claim, so none is recorded.
+  source: https://wayground.com/home/integrations
+- id: caliper
+  name: 1EdTech Caliper Analytics
+  conforms: unknown
+  evidence: Not claimed anywhere on Wayground's public surface.
+- id: qti
+  name: 1EdTech Question and Test Interoperability
+  conforms: unknown
+  evidence: >-
+    Not claimed. Wayground imports and exports quiz content through its own UI and through
+    Google Forms/spreadsheet import; no QTI package format is documented.
+
+compliance:
+- id: iso-27001
+  name: ISO/IEC 27001:2022
+  status: certified
+  evidence: >-
+    "Wayground has achieved ISO/IEC 27001:2022 certification"; the help-centre article describes
+    the ISMS scope (access control, encryption, incident management, audits, training).
+  source: https://help.wayground.com/support/solutions/articles/158000404013-wayground-iso-certification
+- id: ferpa
+  name: FERPA
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: coppa
+  name: COPPA
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: gdpr
+  name: GDPR
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: sdpc
+  name: Student Data Privacy Consortium data privacy agreement signatory
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: project-unicorn
+  name: Project Unicorn interoperability pledge signatory
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: common-sense-privacy
+  name: Common Sense Privacy Verified
+  status: claimed
+  source: https://wayground.com/home/privacy-center
+- id: wcag-section-508
+  name: WCAG / Section 508 / VPAT
+  status: claimed
+  source: https://support.quizizz.com/hc/en-us/articles/360055566272-Quizizz-Accessibility-and-Inclusion-Statement-Including-VPAT
+- id: essa
+  name: ESSA Level 3 evidence
+  status: claimed
+  source: https://wayground.com/home/essa
+- id: soc2
+  name: SOC 2
+  status: not-claimed
+  evidence: >-
+    No SOC 2 report or claim appears anywhere on Wayground's public surface, and there is no
+    trust center. ISO 27001 is the certification they lead with.

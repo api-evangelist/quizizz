@@ -1,18 +1,58 @@
 aid: quizizz
 name: Wayground
-description: 'Wayground is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Wayground (formerly Quizizz) is a K-12 supplemental learning platform from Santa Monica,
+  California that blends instruction, practice and assessment with AI generation. Teachers
+  build and run quizzes, lessons, flashcards, worksheets and video activities; administrators
+  get school and district dashboards, rostering and grade sync. The company reports use in
+  over 150 countries and by 90% of U.S. schools. Its integration surface is aimed at learning
+  platforms rather than at general developers - LTI embedding into Canvas, Schoology,
+  Blackboard and Moodle, rostering and SSO through Clever, ClassLink and Google Classroom,
+  and automatic grade passback. Wayground publishes no public REST API or developer portal,
+  but it does operate an undocumented remote Model Context Protocol server, declared by its
+  own /.well-known/oauth-protected-resource document and fronted by a full OAuth 2.1
+  authorization server with dynamic client registration and PKCE.
+image: https://cdn.prod.website-files.com/68355113496452bf05789e95/68499b8588e356f4263c24d0_57fcc3f00463cd6477e78e279a926b72_wayground-OG.png
 url: https://raw.githubusercontent.com/api-evangelist/quizizz/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
 - Company
-apis: []
+- Education
+- EdTech
+- K-12
+- Learning
+- Assessment
+- Artificial Intelligence
+- Model Context Protocol
+- LTI
+- Rostering
+- Single Sign On
+apis:
+- name: Wayground MCP Server
+  description: >-
+    Remote Model Context Protocol server operated by Wayground at
+    https://wayground.com/_quizizzmcp/main/mcp. Its existence is declared by Wayground's own
+    /.well-known/oauth-protected-resource document, which names the endpoint as the protected
+    resource and https://wayground.com as its authorization server. The endpoint itself is
+    fronted by CloudFront and returns 403 to anonymous, unauthenticated clients, so the tool
+    list could not be enumerated. Wayground publishes no human documentation for it.
+  humanURL: https://wayground.com/home/integrations
+  baseURL: https://wayground.com/_quizizzmcp/main/mcp
+  tags:
+  - Model Context Protocol
+  - Artificial Intelligence
+  - Education
+  properties:
+  - type: MCPServer
+    url: mcp/quizizz-mcp.yml
+  - type: Authentication
+    url: authentication/quizizz-authentication.yml
+  - type: OAuthScopes
+    url: scopes/quizizz-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +60,70 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/quizizz_stock/
+  url: https://wayground.com/
+- type: SignUp
+  url: https://wayground.com/signup
+- type: Login
+  url: https://wayground.com/login
+- type: Pricing
+  url: https://wayground.com/home/plans
+- type: Support
+  url: https://help.wayground.com/support/home
+- type: HelpCenter
+  url: https://support.wayground.com/hc/en-us
+- type: Blog
+  url: https://wayground.com/blog
+- type: GitHubOrganization
+  url: https://github.com/quizizz
+- type: TermsOfService
+  url: https://wayground.com/tos
+- type: PrivacyPolicy
+  url: https://wayground.com/privacy
+- type: WellKnown
+  url: well-known/quizizz-well-known.yml
+- type: LLMsTxt
+  url: llms/quizizz-llms.txt
+- type: Plans
+  url: plans/quizizz-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/quizizz-rate-limits.yml
+- type: Conformance
+  url: conformance/quizizz-conformance.yml
+- type: Compliance
+  url: conformance/quizizz-conformance.yml
+- type: Conventions
+  url: conventions/quizizz-conventions.yml
+- type: Lifecycle
+  url: lifecycle/quizizz-lifecycle.yml
+- type: Packages
+  url: packages/quizizz-packages.yml
+- type: DomainSecurity
+  url: security/quizizz-domain-security.yml
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Wayground publishes no OpenAPI, GraphQL SDL, AsyncAPI, WSDL or .proto and runs no developer
+    portal, but STEP 0b contract discovery found a real, undocumented remote MCP server -
+    https://wayground.com/_quizizzmcp/main/mcp - declared by the provider's own RFC 9728
+    /.well-known/oauth-protected-resource document and fronted by a complete OAuth 2.1
+    authorization server. Four verbatim provider documents were captured. The MCP tool list could
+    not be enumerated: the endpoint answers anonymous JSON-RPC with a CloudFront 403 rather than
+    an OAuth 401 challenge.
+  evidence:
+  - url: https://wayground.com/.well-known/oauth-protected-resource
+    status: 200
+  - url: https://wayground.com/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://wayground.com/_quizizzmcp/main/mcp
+    status: 403
+  - url: https://wayground.com/openapi.json
+    status: 404
+  - url: https://wayground.com/.well-known/agent-card.json
+    status: 403
+  checked: '2026-08-26'

@@ -1,0 +1,73 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  https://wayground.com/.well-known/oauth-authorization-server (HTTP 200, 2026-08-26) and
+  https://wayground.com/.well-known/oauth-protected-resource (HTTP 200, 2026-08-26).
+  Derived from those documents rather than from an OpenAPI, because Wayground publishes no
+  OpenAPI or developer reference.
+summary: >-
+  Wayground's only machine-facing authentication surface is an OAuth 2.1 authorization server
+  protecting its remote MCP endpoint. There is no API-key programme, no public developer
+  console, and no documented token issuance for a REST API - because there is no public REST
+  API. Human and LMS-facing authentication is separate and is handled through LTI 1.3 launches
+  and SSO/rostering with Clever, ClassLink and Google Classroom.
+schemes:
+- name: wayground_mcp_oauth
+  type: oauth2
+  flow: authorizationCode
+  pkce_required: true
+  pkce_methods:
+  - S256
+  authorization_url: https://wayground.com/_authserver/public/public/v1/oauth/authorize
+  token_url: https://wayground.com/_authserver/public/public/v1/oauth/token
+  revocation_url: https://wayground.com/_authserver/public/public/v1/oauth/revoke
+  registration_url: https://wayground.com/_authserver/public/public/v1/oauth/register
+  refresh_tokens: true
+  client_type: public
+  client_authentication:
+  - none
+  dynamic_client_registration: true
+  resource_indicators: true
+  scopes:
+  - name: full_access
+    description: >-
+      The single scope Wayground advertises. Verbatim from scopes_supported in both the
+      authorization-server and protected-resource metadata documents; Wayground publishes no
+      description of what it grants.
+  applies_to:
+  - https://wayground.com/_quizizzmcp/main/mcp
+  standards:
+  - RFC 6749 (OAuth 2.0 authorization code)
+  - RFC 7636 (PKCE)
+  - RFC 7591 (dynamic client registration)
+  - RFC 7009 (token revocation)
+  - RFC 8414 (authorization server metadata)
+  - RFC 8707 (resource indicators)
+  - RFC 9728 (protected resource metadata)
+non_api_authentication:
+- name: LTI 1.3 launch
+  type: openIdConnect
+  description: >-
+    Learning-platform users reach Wayground through an LTI launch from Canvas, Schoology,
+    Blackboard or Moodle. The LTI 1.3 handshake is an OIDC third-party-initiated login with a
+    signed id_token; Wayground generates the client ID and JSON configuration per institution
+    from https://wayground.com/lti/admin/canvas/integration rather than publishing a static
+    tool configuration.
+  docs: https://help.wayground.com/support/solutions/articles/158000403884-integrate-wayground-with-canvas-via-lti-as-an-administrator
+- name: Rostering and SSO
+  type: sso
+  description: >-
+    Clever, ClassLink and Google Classroom provide sign-in and roster sync for schools and
+    districts. Credentials are issued and managed by those platforms, not by Wayground.
+  docs: https://wayground.com/home/integrations
+gaps:
+- >-
+  No OIDC discovery document is served (/.well-known/openid-configuration returns an S3
+  AccessDenied 403), so an OIDC client cannot auto-configure against Wayground even though the
+  OAuth AS metadata is present.
+- >-
+  full_access is the only scope. There is no read/write split, no per-resource scope, and no
+  published description of what it authorises - an agent operator cannot grant a narrow
+  permission.
+- No public documentation of the OAuth flow or of the MCP endpoint it protects.
+- No static, publicly fetchable LTI 1.3 tool configuration or JWKS URL.

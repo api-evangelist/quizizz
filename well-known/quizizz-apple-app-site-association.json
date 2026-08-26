@@ -1,0 +1,46 @@
+{
+
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "5YZ3AKW6MU.com.quizizz.game",
+                "paths": [
+                    "/join",
+                    "/join?gc=*",
+                    "/join?c=*",
+                    "/join/quiz/*",
+                    "/join/pre-game/running/*",
+                    "/join/search/*",
+                    "/join/topic/*",
+                    "/join/game/*",
+                    "/join/activity/*",
+                    "/join/settings/*",
+                    "/pro/join",
+                    "/pro/join?gc=*",
+                    "/pro/join/activity/*",
+                    "/pro/join/settings/*",
+                    "NOT /join/*",
+                    "/admin/reports",
+                    "/admin/reports/*",
+                    "/admin/private",
+                    "/admin/private?sharedWithMe=true",
+                    "/admin/private?createdByMe=true",
+                    "/admin/private?tags=__love__",
+                    "/admin/classes",
+                    "/admin/classes/*",
+                    "/admin/profile",
+                    "/admin/profile/edit",
+                    "/admin/quiz/*",
+                    "/admin/presentation/*",
+                    "NOT /admin*",
+                    "/magic-link/*"
+                ]
+            },
+            {
+                "appID": "5YZ3AKW6MU.com.wayground.companion",
+                "paths": ["/companion-app/magic-link/*"]
+            }
+        ]
+    }
+}

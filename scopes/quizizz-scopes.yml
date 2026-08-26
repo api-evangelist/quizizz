@@ -1,0 +1,22 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  scopes_supported in https://wayground.com/.well-known/oauth-authorization-server and
+  https://wayground.com/.well-known/oauth-protected-resource (both HTTP 200, 2026-08-26).
+docs: null
+docs_note: >-
+  Wayground publishes no scopes or permissions reference page. Searched wayground.com,
+  help.wayground.com and support.wayground.com; nothing documents the OAuth surface at all.
+scope_count: 1
+scopes:
+- name: full_access
+  description: >-
+    Verbatim from the provider's own metadata. Wayground does not state what it grants; from
+    the protected-resource document it is the scope required to call
+    https://wayground.com/_quizizzmcp/main/mcp.
+  resource: https://wayground.com/_quizizzmcp/main/mcp
+  granularity: coarse
+note: >-
+  A single all-or-nothing scope is the finding. An agent authorising against Wayground's MCP
+  server cannot request less than everything the scope covers, and cannot tell from any
+  published source what "everything" is.

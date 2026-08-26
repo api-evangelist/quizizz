@@ -1,0 +1,100 @@
+# Wayground (formerly Quizizz)
+
+> Wayground is a K-12 supplemental learning platform - instruction, practice and assessment with
+> AI generation - headquartered in Santa Monica, California, with offices in New York and
+> Bangalore. It reports use in over 150 countries and by 90% of U.S. schools. The company
+> rebranded from Quizizz in 2025; quizizz.com now 301s to wayground.com.
+
+## What an agent can actually call
+
+Wayground publishes **no public REST API, no OpenAPI, no GraphQL SDL, no AsyncAPI, no WSDL, no
+.proto, and no developer portal**. There is exactly one machine-callable surface:
+
+- **Wayground MCP Server (remote)** - `https://wayground.com/_quizizzmcp/main/mcp`
+  - Declared by Wayground's own RFC 9728 document at
+    `https://wayground.com/.well-known/oauth-protected-resource`
+  - Authorization: OAuth 2.1 against issuer `https://wayground.com`
+  - Undocumented. Nothing on wayground.com, help.wayground.com, support.wayground.com or
+    github.com/quizizz mentions it.
+  - Anonymous `tools/list` returns HTTP 403 from CloudFront, so the tool list, tool input
+    schemas, transport and protocol version are **unknown**. They are not guessed anywhere in
+    this profile.
+
+## Authorization (all values verbatim from the provider's metadata)
+
+- Metadata: https://wayground.com/.well-known/oauth-authorization-server
+- Authorize: https://wayground.com/_authserver/public/public/v1/oauth/authorize
+- Token: https://wayground.com/_authserver/public/public/v1/oauth/token
+- Register (RFC 7591 dynamic client registration): https://wayground.com/_authserver/public/public/v1/oauth/register
+- Revoke: https://wayground.com/_authserver/public/public/v1/oauth/revoke
+- Grants: `authorization_code`, `refresh_token`; response type `code`
+- PKCE: `S256` required; public clients (`token_endpoint_auth_methods: ["none"]`)
+- Resource indicators (RFC 8707): supported
+- Scopes: `full_access` - the only scope, with no published description of what it grants
+
+## Safety notes for an agent acting on Wayground
+
+- **Assume every write is irreversible.** Wayground documents no cancel, undo, restore or
+  reversal operation and states no reversal window. Actions plausibly reachable through the MCP
+  server touch a live classroom - creating and assigning activities, and grade passback into an
+  LMS gradebook. Do not infer a window; there is none published.
+- **No idempotency mechanism is documented.** Do not assume a retry is safe.
+- **No rate limits are published and no rate-limit headers are returned.** There is no runtime
+  backoff signal.
+- **No sandbox or test mode exists.** A free Basic account is a production account.
+- Errors observed on this host use a proprietary envelope
+  (`{"success":false,"error":...,"errorType":"resource.NOT_FOUND","time":...}`), not RFC 9457
+  `application/problem+json`.
+
+## Integration surface for learning platforms (not a developer API)
+
+- LTI 1.3 tool for Canvas, Schoology, Blackboard and Moodle, with deep linking and automatic
+  grade passback. Per-institution client ID and JSON configuration are generated from an
+  authenticated admin screen at https://wayground.com/lti/admin/canvas/integration - no static
+  tool configuration or JWKS URL is publicly served.
+- Rostering and SSO through Clever, ClassLink and Google Classroom.
+- Integrations overview: https://wayground.com/home/integrations
+
+## Compliance
+
+ISO/IEC 27001:2022 certified. Claims FERPA, COPPA and GDPR compliance; holds the 1EdTech TrustEd
+Apps Certified Data Privacy badge; signatory to the Student Data Privacy Consortium DPA and the
+Project Unicorn pledge; Common Sense Privacy Verified; WCAG / Section 508 / VPAT accessibility
+statement; ESSA Level 3 evidence. No SOC 2 claim and no trust center.
+Privacy Center: https://wayground.com/home/privacy-center
+
+## Plans
+
+- Basic - free, up to 100 students per class, limited question types.
+- School and District - price not published, contact sales. Carries the LMS and rostering
+  integrations. https://wayground.com/home/plans
+
+## Links
+
+- Website: https://wayground.com/
+- Sign up: https://wayground.com/signup
+- Login: https://wayground.com/login
+- Plans: https://wayground.com/home/plans
+- Support: https://help.wayground.com/support/home
+- Help center: https://support.wayground.com/hc/en-us
+- Blog: https://wayground.com/blog
+- GitHub organization: https://github.com/quizizz (32 public repos - internal infrastructure
+  wrappers and forks; no API SDK)
+- Terms of Service: https://wayground.com/tos
+- Privacy Policy: https://wayground.com/privacy
+- Rebrand announcement: https://wayground.com/home/from-quizizz-to-wayground
+
+## Gaps a provider could close
+
+1. Document the MCP server - what it is, its tools, and how to connect. It already exists and
+   works; nothing tells anyone so.
+2. Return HTTP 401 with a `WWW-Authenticate` header pointing at the protected-resource metadata
+   instead of a bare CloudFront 403, so RFC 9728 clients can discover the auth flow.
+3. Split `full_access` into meaningful scopes.
+4. State, per write tool, whether the action can be reversed and inside what window.
+5. Serve an RFC 9116 `/.well-known/security.txt`; there is none.
+6. Restore a status page - https://quizizz.statuspage.io/ redirects to `/inactive`.
+
+---
+Generated by API Evangelist from probed public sources on 2026-08-26.
+This is an independent third-party profile; it is not published by Wayground.

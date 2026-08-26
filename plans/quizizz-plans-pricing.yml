@@ -1,0 +1,64 @@
+generated: '2026-08-26'
+method: searched
+source: https://wayground.com/home/plans
+fetched: '2026-08-26'
+http_status: 200
+currency: USD
+plan_count: 2
+note: >-
+  Wayground publishes two tiers and prices only one of them. There is no API pricing, no metered
+  developer tier and no rate-based plan, because there is no public API - the MCP server is not
+  mentioned on the plans page at all. Quotas below are product limits (students per class,
+  question types, resource library access), not API quotas.
+plans:
+- name: Basic
+  price: 0
+  currency: USD
+  billing_period: none
+  contact_sales: false
+  included:
+  - Assessments, presentations, flashcards and video activities
+  - Limited question types
+  - Live and student-paced delivery
+  - AI features - generate, import, adapt, explain
+  - 25+ accommodations including Read Aloud
+  - Live instruction data via Classroom Pulse
+  limits:
+  - metric: students_per_class
+    value: 100
+    note: '"Up to 100 students per class"'
+  - metric: question_types
+    value: limited
+  signup_note: No credit card or commitment required.
+- name: School and District
+  price: null
+  currency: USD
+  billing_period: null
+  contact_sales: true
+  quote_url: https://wayground.com/home/schools-districts-new-form-v2
+  included:
+  - Everything in Basic
+  - All 20+ question types
+  - 40M+ standards-aligned resources
+  - Full AI grading with custom and state rubrics
+  - Admin dashboard with school and district insights
+  - Canvas, Schoology, Clever and ClassLink integrations
+  - Centralized accommodation setup
+  - Dedicated Customer Success Manager
+  limits:
+  - metric: students_per_class
+    value: unlimited
+  payment_methods:
+  - Purchase order
+  - Check
+  - Credit card
+  - ACH
+  note: >-
+    No per-seat price, annual cost or user ceiling is disclosed. This is the tier that carries the
+    LMS and rostering integrations, so every integration capability Wayground documents sits
+    behind a sales conversation.
+api_pricing:
+  published: false
+  note: >-
+    No API plan, no per-call price, no free API tier. The MCP endpoint's entitlement model is
+    undocumented; whether it requires a School and District subscription is not stated anywhere.

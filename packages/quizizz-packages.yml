@@ -1,0 +1,82 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  registry.npmjs.org (name lookup + full-text + scope:quizizz search), pypi.org, github.com/quizizz
+  (32 public repos enumerated via the GitHub API), and the wayground.com footer/media-kit
+  distribution links. Probed 2026-08-26.
+official_count: 0
+package_count: 0
+packages: []
+note: >-
+  Wayground publishes NO first-party API client library, on any registry, in any language. The
+  npm scope @quizizz is unregistered (scope:quizizz search returns 0 packages), pypi.org has
+  neither "quizizz" nor "wayground", and none of the 32 public repositories in github.com/quizizz
+  is an API SDK - they are internal infrastructure wrappers (kafka-wrapper, redis-wrapper,
+  mongo-wrapper, sqs-wrapper, bigquery-wrapper, spicedb-wrapper, rabbit-wrapper, cassandra-wrapper,
+  nats-wrapper, aws-wrapper, service-communication-wrapper), forks (debezium-fork, rendertron,
+  mathquill, sanitize-html, growthbook-golang, clickhouse-kafka-connect), and CI tooling
+  (eslint-plugin-quizizz, dismiss-stale-approvals). This is consistent with the rest of the
+  profile: there is no public API for an SDK to wrap.
+third_party_packages:
+- name: quizizz.js
+  registry: npm
+  official: false
+  version: 1.1.1
+  published: '2020-10-02'
+  publisher: nico.03727
+  repository: https://github.com/zaida04/Quizizz.js
+  description: >-
+    Community Node.js wrapper for the Quizizz.com INTERNAL API - the author's own description.
+    Not endorsed by Wayground, unmaintained for nearly six years, and written five years before
+    the rebrand.
+- name: jsquizizz
+  registry: npm
+  official: false
+  version: 0.0.1
+  published: '2022-10-02'
+  publisher: avivkeller
+  repository: https://github.com/RedYetiDev/jsQuizizz
+  description: Community Node.js client. Single 0.0.1 release, unmaintained.
+- name: quizizz
+  registry: npm
+  official: false
+  version: 1.0.0
+  published: '2022-01-20'
+  publisher: pnbw
+  repository: null
+  description: Name-squat on the npm package name. Not a Wayground artifact.
+distribution:
+  note: >-
+    Wayground ships end-user applications, not developer artifacts. These are recorded for
+    completeness; none is an API client.
+  channels:
+  - kind: ios-app
+    url: https://apps.apple.com/us/app/wayground-for-teachers/id6758831796
+    status: 200
+    bundle_id: 5YZ3AKW6MU.com.quizizz.game
+    version: null
+    published: null
+    note: >-
+      Version and release date not read - the App Store page is JS-rendered and there is no
+      unauthenticated metadata endpoint equivalent to a package registry.
+  - kind: android-app
+    url: https://play.google.com/store/apps/details?id=com.wayground.companion
+    status: 200
+    package: com.wayground.companion
+    version: null
+    published: null
+    note: Same - no unauthenticated registry metadata endpoint for Play Store listings.
+  - kind: chrome-extension
+    url: https://chromewebstore.google.com/detail/wayground-ai/jnegnfbcjklhkmoihoakeijbealomipg
+    status: 200
+    extension_id: jnegnfbcjklhkmoihoakeijbealomipg
+    version: null
+    published: null
+    note: Chrome Web Store publishes no unauthenticated version metadata endpoint.
+registries_checked:
+- registry: npm
+  result: no first-party package; @quizizz scope unregistered
+- registry: pypi
+  result: 404 for both quizizz and wayground
+- registry: github
+  result: 32 public repos, none an API SDK

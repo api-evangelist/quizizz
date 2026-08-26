@@ -1,0 +1,84 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  https://wayground.com/.well-known/oauth-protected-resource (HTTP 200, 2026-08-26) and
+  https://wayground.com/.well-known/oauth-authorization-server (HTTP 200, 2026-08-26), both
+  served by Wayground from its own production host.
+name: Wayground MCP Server
+status: published
+deployment:
+  mode: remote
+  endpoint: https://wayground.com/_quizizzmcp/main/mcp
+  auth: oauth
+  verified: probed
+authorization:
+  issuer: https://wayground.com
+  metadata_document: https://wayground.com/.well-known/oauth-authorization-server
+  protected_resource_document: https://wayground.com/.well-known/oauth-protected-resource
+  authorization_endpoint: https://wayground.com/_authserver/public/public/v1/oauth/authorize
+  token_endpoint: https://wayground.com/_authserver/public/public/v1/oauth/token
+  registration_endpoint: https://wayground.com/_authserver/public/public/v1/oauth/register
+  revocation_endpoint: https://wayground.com/_authserver/public/public/v1/oauth/revoke
+  grant_types:
+  - authorization_code
+  - refresh_token
+  response_types:
+  - code
+  pkce: S256
+  dynamic_client_registration: true
+  token_endpoint_auth_methods:
+  - none
+  resource_indicators_supported: true
+  scopes:
+  - full_access
+tools: []
+tools_status: unknown
+x-evidence:
+- url: https://wayground.com/.well-known/oauth-protected-resource
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-26'
+  finding: >-
+    resource = https://wayground.com/_quizizzmcp/main/mcp; authorization_servers =
+    [https://wayground.com]; scopes_supported = [full_access].
+- url: https://wayground.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-26'
+  finding: Full RFC 8414 metadata, OAuth 2.1 shape with PKCE S256 and RFC 7591 dynamic registration.
+- url: https://wayground.com/_quizizzmcp/main/mcp
+  http_status: 403
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  fetched: '2026-08-26'
+  finding: >-
+    CloudFront "Request blocked" HTML, not an MCP JSON-RPC error and not an OAuth
+    401/WWW-Authenticate challenge. Retried once with a desktop browser User-Agent and an Origin
+    header - same 403. The tool list therefore could not be enumerated anonymously; it needs an
+    authenticated MCP client that has completed the dynamic-registration + PKCE flow above.
+- url: https://wayground.com/mcp
+  http_status: 404
+  fetched: '2026-08-26'
+  finding: No public marketing or documentation page for the MCP server.
+- url: https://wayground.com/home/mcp
+  http_status: 404
+  fetched: '2026-08-26'
+  finding: No public marketing or documentation page for the MCP server.
+note: >-
+  This is a real, provider-operated remote MCP server that Wayground does not document anywhere
+  a human or a search engine can find it. Nothing on wayground.com, help.wayground.com,
+  support.wayground.com or github.com/quizizz mentions it; it was found only because Wayground
+  correctly serves the RFC 9728 protected-resource document that MCP clients are supposed to
+  read. The auth posture is modern and complete - OAuth 2.1, public clients, PKCE S256, dynamic
+  client registration, refresh tokens, resource indicators - which is the posture of a
+  deliberately built agent surface rather than an accident.
+  What is NOT recorded here, because it could not be observed: the tool list, tool input schemas,
+  the transport (streamable HTTP vs SSE), and the protocol version. Those require an
+  authenticated introspection with a registered client and a Wayground account. No tool list has
+  been derived or guessed - Wayground publishes no OpenAPI from which one could be derived, and
+  inventing one would misrepresent what an agent can actually call.
+gaps:
+- No public documentation, quickstart, or connector listing for the MCP server.
+- tools/list is unreachable anonymously (CloudFront 403 rather than a 401 OAuth challenge).
+- >-
+  The endpoint answers a bare 403 instead of a 401 with a WWW-Authenticate header pointing at
+  the resource metadata, which is what RFC 9728 clients expect for discovery.

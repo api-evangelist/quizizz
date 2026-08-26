@@ -1,0 +1,32 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Live unauthenticated HTTPS responses from wayground.com and
+  https://wayground.com/_quizizzmcp/main/mcp, 2026-08-26; plus a search of wayground.com,
+  help.wayground.com and support.wayground.com for any published limits.
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  Wayground publishes no rate limits, and none were observable. No RateLimit-*, X-RateLimit-* or
+  Retry-After header appeared on any response probed, including the OAuth metadata documents and
+  the MCP endpoint. There is no developer portal or plan page that states a call quota, because
+  there is no public API to meter. An agent integrating against the MCP server has no published
+  budget and no runtime signal to back off on.
+observed:
+- url: https://wayground.com/.well-known/oauth-authorization-server
+  status: 200
+  rate_limit_headers: none
+- url: https://wayground.com/.well-known/oauth-protected-resource
+  status: 200
+  rate_limit_headers: none
+- url: https://wayground.com/_quizizzmcp/main/mcp
+  status: 403
+  rate_limit_headers: none
+  note: CloudFront request-blocked page; no Retry-After.
+product_limits:
+  note: >-
+    The plans page states product-level ceilings rather than API limits, and those are recorded in
+    plans/quizizz-plans-pricing.yml - notably "up to 100 students per class" on the free Basic
+    plan and "unlimited student capacity" on School and District.

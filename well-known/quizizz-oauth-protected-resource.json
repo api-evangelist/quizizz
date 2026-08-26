@@ -1,0 +1,5 @@
+{
+  "resource": "https://wayground.com/_quizizzmcp/main/mcp",
+  "authorization_servers": ["https://wayground.com"],
+  "scopes_supported": ["full_access"]
+}

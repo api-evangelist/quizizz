@@ -1,0 +1,82 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Direct unauthenticated HTTPS probes of every /.well-known/ path in the enrichment contract
+  against wayground.com, the single production host Wayground operates (quizizz.com 301s to it).
+  Probed 2026-08-26 with a desktop browser User-Agent.
+note: >-
+  Wayground serves four real /.well-known/ documents. Two of them are the significant find:
+  /.well-known/oauth-authorization-server publishes a complete OAuth 2.1 authorization-server
+  metadata document (dynamic client registration, PKCE S256, refresh tokens), and
+  /.well-known/oauth-protected-resource names https://wayground.com/_quizizzmcp/main/mcp as the
+  protected resource - which is how a remote MCP server that has no public documentation
+  anywhere becomes discoverable. The remaining paths answer with an S3 AccessDenied XML body
+  (HTTP 403), which is the storage bucket's default for a missing key, not a served document;
+  they are recorded as misses. There is no security.txt and no api-catalog.
+hosts:
+- host: wayground.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: well-known/quizizz-oauth-authorization-server.json
+    content_type: application/json
+    note: >-
+      RFC 8414 authorization server metadata. issuer https://wayground.com, authorization
+      /_authserver/public/public/v1/oauth/authorize, token /_authserver/public/public/v1/oauth/token,
+      registration (RFC 7591 dynamic client registration) and revocation endpoints, grant types
+      authorization_code + refresh_token, code_challenge_methods S256, token endpoint auth method
+      "none" (public clients), single scope full_access, resource_indicators_supported true.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: well-known/quizizz-oauth-protected-resource.json
+    content_type: application/json
+    note: >-
+      RFC 9728 protected resource metadata. resource https://wayground.com/_quizizzmcp/main/mcp,
+      authorization_servers [https://wayground.com], scopes_supported [full_access]. This is the
+      only provider-published evidence that the Wayground MCP server exists.
+  - path: /.well-known/apple-app-site-association
+    status: 200
+    file: well-known/quizizz-apple-app-site-association.json
+    content_type: application/json
+    note: Universal Links for appID 5YZ3AKW6MU.com.quizizz.game - deep links under /join and /pro/join.
+  - path: /.well-known/assetlinks.json
+    status: 200
+    file: well-known/quizizz-assetlinks.json
+    content_type: application/json
+    note: Android App Links for com.quizizz_mobile and related packages.
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+    note: S3 AccessDenied XML, not a document. No RFC 9116 security.txt is served.
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+    note: S3 AccessDenied XML. OIDC discovery is not published; the OAuth AS metadata path is.
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+    note: S3 AccessDenied XML. No RFC 9727 api-catalog.
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+    note: S3 AccessDenied XML.
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+    note: S3 AccessDenied XML. No A2A agent card.
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+    note: S3 AccessDenied XML. No legacy pre-0.3 A2A agent card either.
+  - path: /.well-known/jwks.json
+    status: 403
+    file: null
+    note: S3 AccessDenied XML.
+  - path: /.well-known/mcp.json
+    status: 403
+    file: null
+    note: S3 AccessDenied XML.
+  - path: /.well-known/change-password
+    status: 403
+    file: null
+    note: S3 AccessDenied XML.

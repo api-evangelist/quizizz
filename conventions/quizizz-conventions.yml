@@ -1,0 +1,91 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Live probes of wayground.com 2026-08-26 plus the two /.well-known/ OAuth metadata documents.
+  No OpenAPI, GraphQL SDL or developer reference exists to derive from.
+summary: >-
+  Wayground publishes no API conventions because it publishes no public API. The only
+  machine-callable surface is an undocumented remote MCP endpoint behind OAuth 2.1. Everything
+  below is either observed from a live response or recorded as unknown; nothing is inferred from
+  a comparable provider.
+authentication:
+  style: oauth2-bearer
+  detail: >-
+    OAuth 2.1 authorization code + PKCE S256, public clients, dynamic client registration.
+    See authentication/quizizz-authentication.yml.
+  docs: null
+versioning:
+  scheme: path-segment
+  detail: >-
+    The only versioned paths observed are internal: /_authserver/public/public/v1/oauth/* and the
+    /public/v1/* paths named in robots.txt. Wayground publishes no versioning policy, no version
+    header, and no statement about how a version is retired.
+  policy_url: null
+error_envelope:
+  format: proprietary-json
+  observed_shape:
+    success: false
+    error: string
+    errorType: 'dotted string, e.g. resource.NOT_FOUND'
+    time: ISO 8601 timestamp
+  observed_at: https://wayground.com/_quizizzmcp/main/.well-known/oauth-protected-resource
+  observed_status: 404
+  rfc9457: false
+  note: >-
+    Content-Type on that response is application/json, not application/problem+json. This is one
+    observed response, not a documented contract - Wayground publishes no error reference.
+pagination:
+  style: unknown
+  detail: No public API surface to observe or document to read.
+idempotency:
+  supported: unknown
+  detail: >-
+    No documented write API and no observable request headers. The MCP endpoint is
+    unauthenticated-blocked, so idempotency behaviour of its tools cannot be established.
+    Recorded as unknown rather than na, because the MCP server almost certainly exposes writes
+    (Wayground's product is authoring and assigning content) - we simply cannot see them.
+rate_limit_signaling:
+  headers: []
+  detail: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After headers were observed on any unauthenticated
+    response from wayground.com. See rate-limits/quizizz-rate-limits.yml.
+request_id_tracing:
+  header: null
+  detail: >-
+    No first-party request-id header is returned. Responses carry CloudFront's x-amz-cf-id, which
+    is CDN infrastructure, not a Wayground correlation ID a support ticket could reference.
+field_expansion:
+  supported: unknown
+metadata:
+  supported: unknown
+sandbox:
+  available: false
+  detail: >-
+    No test mode, sandbox tenant, test keys or fixture tooling is published. A free Basic account
+    is the closest thing to a test environment and it is production.
+reversibility:
+  grade: unknown
+  applicability: >-
+    Not na - the product has real write surfaces (creating and assigning activities, syncing
+    grades back to an LMS gradebook), and the MCP server is presumed to expose some of them. But
+    with no contract and no reachable tool list, no reversal operation can be named and no window
+    can be quoted.
+  operations: []
+  windows: []
+  note: >-
+    NO REVERSAL WINDOW IS ASSERTED. Wayground's public documentation states none, and inventing
+    one for an agent acting on a teacher's classroom - deleting an assignment, pushing a grade -
+    would be the most expensive possible error in this artifact. An agent operator should treat
+    every Wayground MCP write as irreversible until Wayground documents otherwise.
+  provider_action: >-
+    Document, per MCP tool, whether the action can be undone and inside what window. This is the
+    single highest-value thing Wayground could publish for the agent surface it already runs.
+dry_run_mode:
+  supported: unknown
+  detail: No contract and no reachable tool list, so no dry-run parameter can be confirmed.
+cross_links:
+- authentication/quizizz-authentication.yml
+- scopes/quizizz-scopes.yml
+- rate-limits/quizizz-rate-limits.yml
+- lifecycle/quizizz-lifecycle.yml
+- mcp/quizizz-mcp.yml
