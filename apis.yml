@@ -12,6 +12,17 @@ description: >-
   but it does operate an undocumented remote Model Context Protocol server, declared by its
   own /.well-known/oauth-protected-resource document and fronted by a full OAuth 2.1
   authorization server with dynamic client registration and PKCE.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/68355113496452bf05789e95/68499b8588e356f4263c24d0_57fcc3f00463cd6477e78e279a926b72_wayground-OG.png
 url: https://raw.githubusercontent.com/api-evangelist/quizizz/refs/heads/main/apis.yml
 x-type: company
