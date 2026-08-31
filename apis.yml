@@ -38,6 +38,18 @@ tags:
 - Learning
 - Assessment
 - Artificial Intelligence
+- MCP
+- LTI
+- Rostering
+- Single Sign-On
+tags_raw:
+- Company
+- Education
+- EdTech
+- K-12
+- Learning
+- Assessment
+- Artificial Intelligence
 - Model Context Protocol
 - LTI
 - Rostering
@@ -54,6 +66,10 @@ apis:
   humanURL: https://wayground.com/home/integrations
   baseURL: https://wayground.com/_quizizzmcp/main/mcp
   tags:
+  - MCP
+  - Artificial Intelligence
+  - Education
+  tags_raw:
   - Model Context Protocol
   - Artificial Intelligence
   - Education
