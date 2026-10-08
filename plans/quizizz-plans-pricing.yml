@@ -62,3 +62,22 @@ api_pricing:
   note: >-
     No API plan, no per-call price, no free API tier. The MCP endpoint's entitlement model is
     undocumented; whether it requires a School and District subscription is not stated anywhere.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Basic
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: School and District
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
