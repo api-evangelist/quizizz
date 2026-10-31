@@ -64,5 +64,117 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Wayground is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/quizizz_stock/
+Wayground (formerly Quizizz) is a K-12 supplemental learning platform from Santa Monica, California that blends instruction, practice and assessment with AI generation. Teachers build and run quizzes, lessons, flashcards, worksheets and video activities; administrators get school and district dashboards, rostering and grade sync. The company reports use in over 150 countries and by 90% of U.S. schools. Its integration surface is aimed at learning platforms rather than at general developers - LTI embedding into Canvas, Schoology, Blackboard and Moodle, rostering and SSO through Clever, ClassLink and Google Classroom, and automatic grade passback. Wayground publishes no public REST API or developer portal, but it does operate an undocumented remote Model Context Protocol server, declared by its own /.well-known/oauth-protected-resource document and fronted by a full OAuth 2.1 authorization server with dynamic client registration and PKCE.
+
+**Areas:** Company · Education · EdTech · K-12 · Learning · Assessment · Artificial Intelligence · MCP · LTI · Rostering · SSO
+
+## Wayground on APIs.io
+
+Everything profiled for Wayground is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/quizizz/](https://apis.io/providers/quizizz/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Wayground MCP Server](https://apis.io/apis/quizizz/wayground-mcp-server/) — Remote Model Context Protocol server operated by Wayground at https://wayground.com/_quizizzmcp/main/mcp. Its existence is declared by Wayground's own…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Wayground MCP Server](https://apis.io/servers/quizizz/wayground-mcp-server/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Quizizz Authentication](https://apis.io/security/quizizz/quizizz-authentication/)
+- [Quizizz Domain Security](https://apis.io/security/quizizz/quizizz-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Quizizz Scopes](https://apis.io/scopes/quizizz/quizizz-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Quizizz Plans Pricing](https://apis.io/plans/quizizz/quizizz-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Quizizz Rate Limits](https://apis.io/rate-limits/quizizz/quizizz-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://wayground.com/)
+- [Pricing](https://wayground.com/home/plans)
+- [Sign up](https://wayground.com/signup)
+- [Support](https://help.wayground.com/support/home)
+- [Blog](https://wayground.com/blog)
+- [Terms of service](https://wayground.com/tos)
+- [Privacy policy](https://wayground.com/privacy)
+- [GitHub](https://github.com/quizizz)
+
+## API Evangelist rating
+
+**Kin Score 31.3** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 73.7 |
+
+**Agent readiness 24.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 36.4** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/quizizz/](https://apis.io/providers/quizizz/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Wayground: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/quizizz/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
